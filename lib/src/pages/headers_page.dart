@@ -5,7 +5,7 @@ class HeadersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _diagonalHeader();
+    return _triangleHeader();
   }
 }
 
@@ -66,6 +66,43 @@ class _diagonal extends CustomPainter {
     path.lineTo(size.width, size.height * 0.30);
     path.lineTo(size.width, 0);
     path.lineTo(0, 0);
+
+    canvas.drawPath(path, pencil);
+  }
+}
+
+Widget _triangleHeader() {
+  return Scaffold(
+    body: Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: CustomPaint(
+        painter: _triangle(),
+      ),
+    ),
+  );
+}
+
+class _triangle extends CustomPainter {
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    //this is our pencil
+    final pencil = Paint();
+    pencil.color = const Color(0xff615aab);
+    pencil.style = PaintingStyle.fill; //stroke bordes ;fill todo
+    pencil.strokeWidth = 5;
+
+    final path = Path();
+
+    //dibujar con el lapiz el recorrido de path
+    //moveTo lo mueve sin pintar, lineTo lo mueve pintando
+    path.lineTo(0, size.height);
+    path.lineTo(size.width, size.height);
 
     canvas.drawPath(path, pencil);
   }
